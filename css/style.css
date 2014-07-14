@@ -1,0 +1,23 @@
+body {
+  width: 425px;
+  text-align: center;
+  background-color: #ededed;
+}
+
+input[type=number] {
+  width: 4em;
+}
+
+/* the gear icon that shows/hides the preferences/info area */
+#toggle-preferences {
+  position: absolute;
+  color: #3d3d3d;
+  text-decoration: none;
+  right: 8px;
+  top: 5px;
+}
+
+/* the info in the preferences/info area */
+.notes {
+  text-align: left;
+}

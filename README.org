@@ -1,0 +1,2 @@
+* Tentacle Tabs
+  A chrome extension that helps you manage your GitHub tabs.

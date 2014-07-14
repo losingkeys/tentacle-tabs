@@ -1,0 +1,20 @@
+{
+
+  "name": "Tentacle Tabs",
+  "description": "An extension that lets you easily manage GitHub issues and
+                  pull requests from specific authors and repositories.",
+
+  "version": "0.0.1",
+  "manifest_version": 2,
+
+  "browser_action": {
+    "default_title": "Tentacle Tabs",
+    "default_popup": "index.html"
+  },
+
+  "permissions": [
+    "tabs",
+    "https://api.github.com/"
+  ]
+
+}

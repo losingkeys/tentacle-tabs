@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+  <title>Tentacle Tabs</title>
+  <meta charset=utf-8>
+  <link rel=stylesheet href=css/style.css>
+</head>
+<body>
+  <a id=toggle-preferences href=#>⚙</a>
+
+  <section id=main>
+    <form id=open-form>
+      open tabs for
+      <select id=open-how-many>
+        <option>all</option>
+        <option>at most</option>
+      </select>
+      <input required id=open-max type=number min=1 placeholder=10 style=display:none>
+
+      <select id=open-what-type>
+        <option>open pull requests</option>
+        <option>open issues</option>
+        <option>closed pull requests</option>
+        <option>closed issues</option>
+        <option>pull requests</option>
+        <option>issues</option>
+      </select>
+
+      <br>
+
+      <select id=open-where>
+        <option>in a new window</option>
+        <option>in the current window</option>
+      </select>
+
+      <br>
+
+      opened by
+      <select id=open-which-users>
+        <option>specific</option>
+        <option>any</option>
+      </select>
+      user(s)
+      <input required id=open-which-usernames placeholder="username, other">
+
+      <br>
+
+      in the following repository(ies):
+      <br>
+      <input required size=50 id=open-which-repo-names placeholder="username/repo, organization/other-repo">
+
+      <br>
+
+      sorted by
+      <select id=open-sorted-how>
+        <option value=updated>time updated</option>
+        <option value=created>time created</option>
+        <option value=comments>number of comments</option>
+      </select>
+      in
+      <select id=open-what-order>
+        <option value=desc>descending</option>
+        <option value=asc>ascending</option>
+      </select>
+      order
+
+      <br>
+
+      <input type=reset value="Reset Form">
+      <input type=submit value="Open Tabs">
+    </form>
+
+    <hr>
+
+    <form id=close-form>
+      close
+      <select id=close-what-type>
+        <option value="pull request">GitHub pull request</option>
+        <option value=issue>GitHub issue</option>
+        <option value=all>GitHub</option>
+      </select>
+      tabs
+
+      <br>
+
+      <select id=close-where>
+        <option value="current window">in the current window</option>
+        <option value="all open windows">in all open windows</option>
+      </select>
+
+      <br>
+
+      matching
+      <select id=close-which-repos>
+        <option>any</option>
+        <option>specific</option>
+      </select>
+      repository(ies):
+      <input required style=display:none id=close-which-repo-names size=50 placeholder="username/repo, organization/other-repo">
+
+      <br>
+
+      <input type=reset value="Reset Form">
+      <input type=submit value="Close Tabs">
+    </form>
+  </section>
+
+  <section id=preferences style=display:none>
+    <form>
+      GitHub API Token:
+      <br>
+      <input id=access-token spellcheck=false size=41 placeholder=aaabbbcccdddeeefff1122334455667788990000>
+      <br>
+      <a target=_blank href=https://github.com/settings/applications#personal-access-tokens>Manage API tokens</a>
+    </form>
+    <div class=notes>
+      Notes:
+      <hr>
+      Without a Personal access token this extension <strong>will</strong>
+      still work. However it won't be able to find private repos, and will
+      hit the <a target=_blank
+      href=https://developer.github.com/v3/#rate-limiting>rate limit</a>
+      sooner.
+      <hr>
+      One request is made to the GitHub API per repo each time <kbd>Open
+      Tabs</kbd> is pressed.  No requests are made when using the close tabs
+      form.
+      <hr>
+      All GitHub Pull Requests are Issues, but not all Issues are Pull
+      Requests. See <a target=_blank
+      href=https://developer.github.com/v3/issues/>The GitHub Issue
+      documentation</a> for more info.
+    </div>
+  </section>
+
+  <script src=js/app.js></script>
+</body>
+</html>
