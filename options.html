@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <title>Settings | Tentacle Tabs</title>
+  <meta charset=utf-8>
+  <style>
+    body {
+      font-size: 1.1em;
+      text-align: center;
+    }
+    .notes {
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <form>
+    GitHub API Token:
+    <input id=access-token spellcheck=false size=41 placeholder=aaabbbcccdddeeefff1122334455667788990000>
+  </form>
+  <a target=_blank href=https://github.com/settings/applications#personal-access-tokens>
+    Manage your API Tokens on GitHub
+  </a>
+  <div class=notes>
+    <em>Notes:</em>
+    <ul>
+      <li>
+        Changes to this page are saved automatically. Feel free to close this
+        page when you're done.
+      </li>
+      <li>
+        Without a Personal access token this extension <strong>will</strong>
+        still work. However it won't be able to find private repos, and will
+        hit the <a target=_blank
+        href=https://developer.github.com/v3/#rate-limiting>rate limit</a>
+        sooner.
+      </li>
+      <li>
+        One request is made to the GitHub API per repo each time <kbd>Open
+        Tabs</kbd> is pressed.  No requests are made when using the close
+        tabs form.
+      </li>
+      <li>
+        All GitHub Pull Requests are Issues, but not all Issues are Pull
+        Requests. See <a target=_blank
+        href=https://developer.github.com/v3/issues/>The GitHub Issue
+        documentation</a> for more info.
+      </li>
+    </ul>
+  </div>
+  <script src=js/options.js></script>
+</body>
+</html>

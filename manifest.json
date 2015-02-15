@@ -4,6 +4,8 @@
   "description": "An extension that lets you easily manage GitHub issues and
                   pull requests from specific authors and repositories.",
 
+  "options_page": "options.html",
+
   "version": "0.0.1",
   "manifest_version": 2,
 

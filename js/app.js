@@ -1,9 +1,6 @@
 (function() {
 
-  localStorage.setItem('preferencesVisible', false);
-
-  var accessTokenInput         = document.getElementById('access-token'),
-      closeForm                = document.getElementById('close-form'),
+  var closeForm                = document.getElementById('close-form'),
       closeWhatTypeInput       = document.getElementById('close-what-type'),
       closeWhereInput          = document.getElementById('close-where'),
       closeWhichRepoNamesInput = document.getElementById('close-which-repo-names'),
@@ -18,7 +15,6 @@
       openWhichRepoNamesInput  = document.getElementById('open-which-repo-names'),
       openWhichUsernamesInput  = document.getElementById('open-which-usernames'),
       openWhichUsersInput      = document.getElementById('open-which-users'),
-      preferencesView          = document.getElementById('preferences'),
       inputsToBeSaved          = [
         openHowManyInput,
         openMaxInput,
@@ -33,7 +29,6 @@
         closeWhichReposInput,
         closeWhichRepoNamesInput,
         closeWhereInput,
-        accessTokenInput
       ],
       INPUTS_NEEDING_CLARIFICATION = [
         openHowManyInput,
@@ -44,9 +39,6 @@
         'at most',
         'specific',
       ];
-
-  preferencesView.display = 'none';
-  mainView.display = 'block';
 
   inputsToBeSaved.map(function(input) {
     var saveInputOnEvent = 'change';
@@ -107,22 +99,6 @@
         hideClarifyingInput(this.nextElementSibling);
       }
     });
-  });
-
-
-  togglePreferencesLink.addEventListener('click', function() {
-    var preferencesVisible = 'true' ===
-      localStorage.getItem('preferencesVisible');
-
-    if (preferencesVisible) {
-      preferencesView.style.display = 'none';
-      mainView.style.display = 'block';
-    } else {
-      preferencesView.style.display = 'block';
-      mainView.style.display = 'none';
-    }
-
-    localStorage.setItem('preferencesVisible', !preferencesVisible);
   });
 
   openForm.addEventListener('submit', function(e) {
@@ -288,7 +264,7 @@
     var ghUrl       = 'https://api.github.com/repos/' + userSlashRepo + '/' + issuesOrPulls +
                         '?state=' + state + '&sort=' + sort + '&direction=' + direction,
         headers     = { Accept: 'application/vnd.github.v3+json' },
-        accessToken = accessTokenInput.value.trim();
+        accessToken = localStorage.getItem('access-token');
 
     if (accessToken.length > 0) {
       headers.Authorization = 'token ' + accessToken;
