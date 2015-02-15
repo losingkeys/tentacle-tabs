@@ -1,44 +1,73 @@
 <!doctype html>
 <html>
 <head>
-  <title>Settings | Tentacle Tabs</title>
+  <title>Options | Tentacle Tabs</title>
   <meta charset=utf-8>
   <style>
     body {
       font-size: 1.1em;
+    }
+    #settings-box {
       text-align: center;
+    }
+    #urls-and-access-tokens {
+      list-style: none;
     }
     .notes {
       text-align: left;
     }
+    :invalid {
+      border: 1px solid red;
+    }
+    .error {
+      color: red;
+    }
   </style>
 </head>
 <body>
-  <form>
-    GitHub API Token:
-    <input id=access-token spellcheck=false size=41 placeholder=aaabbbcccdddeeefff1122334455667788990000>
-  </form>
-  <a target=_blank href=https://github.com/settings/applications#personal-access-tokens>
-    Manage your API Tokens on GitHub
-  </a>
+  <div id=settings-box>
+    GitHub URLs and tokens:
+    <ul id=urls-and-access-tokens>
+      <li>
+          <!-- URLs and tokens are backed up with an arbirary ID and iterated
+            over when opening/closing tabs with this plugin -->
+          <input type=url id=u1 class=github-url spellcheck=false size=41 placeholder=https://github.com/>:
+          <input id=t1 class=access-token spellcheck=false size=41 placeholder=aaabbbcccdddeeefff1122334455667788990000>
+      </li>
+    </ul>
+    <button id=add>Add another URL/Token</button>
+  </div>
   <div class=notes>
     <em>Notes:</em>
     <ul>
-      <li>
-        Changes to this page are saved automatically. Feel free to close this
-        page when you're done.
-      </li>
       <li>
         Without a Personal access token this extension <strong>will</strong>
         still work. However it won't be able to find private repos, and will
         hit the <a target=_blank
         href=https://developer.github.com/v3/#rate-limiting>rate limit</a>
-        sooner.
+        sooner. You can
+        <a target=_blank href=https://github.com/settings/applications#personal-access-tokens>
+        manage your GitHub.com API Tokens here</a>.
       </li>
       <li>
-        One request is made to the GitHub API per repo each time <kbd>Open
-        Tabs</kbd> is pressed.  No requests are made when using the close
-        tabs form.
+        Changes to this page are saved automatically. Feel free to close this
+        page when you're done.
+      </li>
+      <li>
+        URLs that look invalid are <span class=error>marked</span>. These
+        probably won't work, but will be tried anyway. Try prepending a
+        protocol (e.g. <code>http://</code>) to fix these.
+      </li>
+      <li>
+        Any missing URL is assumed to be <a href=https://github.com>https://github.com</a>.
+        Only one token is allowed per request, so add another row to use
+        multiple tokens.
+      </li>
+      <li>
+        One request is made to the <a href=https://github.com>https://github.com</a>,
+        and any defined enterprise URLs <em>per repo</em> each time <kbd>Open
+        Tabs</kbd> is pressed. No requests are made when using the close tabs
+        form.
       </li>
       <li>
         All GitHub Pull Requests are Issues, but not all Issues are Pull

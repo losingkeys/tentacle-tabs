@@ -261,19 +261,30 @@
                                sort,
                                direction,
                                successHandler) {
-    var ghUrl       = 'https://api.github.com/repos/' + userSlashRepo + '/' + issuesOrPulls +
-                        '?state=' + state + '&sort=' + sort + '&direction=' + direction,
-        headers     = { Accept: 'application/vnd.github.v3+json' },
-        accessToken = localStorage.getItem('access-token');
+    var path    = '/repos/' + userSlashRepo + '/' + issuesOrPulls +
+                   '?state=' + state + '&sort=' + sort + '&direction=' + direction,
+        headers = { Accept: 'application/vnd.github.v3+json' };
 
-    if (accessToken.length > 0) {
-      headers.Authorization = 'token ' + accessToken;
+    for (var id in localStorage) {
+      if (localStorage.hasOwnProperty(id)) {
+        var firstCharacter = id.substr(0, 1),
+            numericalID    = parseInt(id.substr(1));
+
+        if (firstCharacter === 'u' || firstCharacter === 't') {
+          var domain      = localStorage.getItem('u' + numericalID) || 'https://api.github.com',
+              accessToken = localStorage.getItem('t' + numericalID);
+
+          if (accessToken !== null && accessToken.length > 0) {
+            headers.Authorization = 'token ' + accessToken;
+          }
+
+          httpGet(domain + path, successHandler, headers);
+        }
+      }
     }
-
-    httpGetSync(ghUrl, successHandler, headers);
   }
 
-  function httpGetSync(url, successHandler, httpHeaders) {
+  function httpGet(url, successHandler, httpHeaders) {
     var r = new XMLHttpRequest();
     r.addEventListener('load', successHandler);
 
