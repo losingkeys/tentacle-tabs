@@ -2,25 +2,23 @@
 
   localStorage.setItem('preferencesVisible', false);
 
-  var preferencesView          = document.getElementById('preferences'),
-      mainView                 = document.getElementById('main'),
-      togglePreferencesLink    = document.getElementById('toggle-preferences'),
-      accessTokenInput         = document.getElementById('access-token'),
+  var accessTokenInput         = document.getElementById('access-token'),
+      closeForm                = document.getElementById('close-form'),
+      closeWhatTypeInput       = document.getElementById('close-what-type'),
+      closeWhereInput          = document.getElementById('close-where'),
+      closeWhichRepoNamesInput = document.getElementById('close-which-repo-names'),
+      closeWhichReposInput     = document.getElementById('close-which-repos'),
+      openForm                 = document.getElementById('open-form'),
       openHowManyInput         = document.getElementById('open-how-many'),
       openMaxInput             = document.getElementById('open-max'),
-      openWhatTypeInput        = document.getElementById('open-what-type'),
-      openWhereInput           = document.getElementById('open-where'),
-      openWhichUsersInput      = document.getElementById('open-which-users'),
       openSortedHowInput       = document.getElementById('open-sorted-how'),
       openWhatOrderInput       = document.getElementById('open-what-order'),
-      openWhichUsernamesInput  = document.getElementById('open-which-usernames'),
+      openWhatTypeInput        = document.getElementById('open-what-type'),
+      openWhereInput           = document.getElementById('open-where'),
       openWhichRepoNamesInput  = document.getElementById('open-which-repo-names'),
-      closeWhatTypeInput       = document.getElementById('close-what-type'),
-      closeWhichReposInput     = document.getElementById('close-which-repos'),
-      closeWhichRepoNamesInput = document.getElementById('close-which-repo-names'),
-      closeWhereInput          = document.getElementById('close-where'),
-      openForm                 = document.getElementById('open-form'),
-      closeForm                = document.getElementById('close-form'),
+      openWhichUsernamesInput  = document.getElementById('open-which-usernames'),
+      openWhichUsersInput      = document.getElementById('open-which-users'),
+      preferencesView          = document.getElementById('preferences'),
       inputsToBeSaved          = [
         openHowManyInput,
         openMaxInput,
@@ -40,11 +38,11 @@
       INPUTS_NEEDING_CLARIFICATION = [
         openHowManyInput,
         openWhichUsersInput,
-        closeWhichReposInput
+        closeWhichReposInput,
       ],
       SELECTIONS_THAT_ENABLE_INPUTS = [
         'at most',
-        'specific'
+        'specific',
       ];
 
   preferencesView.display = 'none';
@@ -130,17 +128,16 @@
   openForm.addEventListener('submit', function(e) {
     e.preventDefault();
 
-    var usernames = openWhichUsersInput.value !== 'any' &&
-          openWhichUsernamesInput.value.replace(/\s+/g, '').split(','),
-        repos = openWhichRepoNamesInput.value.replace(/\s+/g, '').split(','),
-        type = openWhatTypeInput.value.match(/pull requests|issues/)[0],
+    var usernames     = openWhichUsersInput.value !== 'any' &&
+                          openWhichUsernamesInput.value.replace(/\s+/g, '').split(','),
+        repos         = openWhichRepoNamesInput.value.replace(/\s+/g, '').split(','),
+        type          = openWhatTypeInput.value.match(/pull requests|issues/)[0],
         possibleState = openWhatTypeInput.value.match(/open|closed/),
-        state = (possibleState && possibleState[0] || 'all'),
-        sortBy = openSortedHowInput.value,
-        sortOrder = openWhatOrderInput.value,
-        githubLinks =
-          getLinksFor(usernames, repos, type, state, sortBy, sortOrder),
-        openMax = parseInt(openMaxInput.value);
+        state         = (possibleState && possibleState[0] || 'all'),
+        sortBy        = openSortedHowInput.value,
+        sortOrder     = openWhatOrderInput.value,
+        githubLinks   = getLinksFor(usernames, repos, type, state, sortBy, sortOrder),
+        openMax       = parseInt(openMaxInput.value);
 
     if (openHowManyInput.value === 'at most' && !isNaN(openMax)) {
       githubLinks = githubLinks.slice(0, openMax);
@@ -203,7 +200,7 @@
 
   function closeTabsMatching(repos, currentWindowOrAll) {
     var urlPrefix = 'https://github.com/',
-        urlType = closeWhatTypeInput.value;
+        urlType   = closeWhatTypeInput.value;
 
     switch (urlType) {
       // only GitHub pull request URLs
@@ -288,10 +285,9 @@
                                sort,
                                direction,
                                successHandler) {
-    var ghUrl = 'https://api.github.com/repos/' +
-          userSlashRepo + '/' + issuesOrPulls +
-          '?state=' + state + '&sort=' + sort + '&direction=' + direction,
-        headers = { Accept: 'application/vnd.github.v3+json' },
+    var ghUrl       = 'https://api.github.com/repos/' + userSlashRepo + '/' + issuesOrPulls +
+                        '?state=' + state + '&sort=' + sort + '&direction=' + direction,
+        headers     = { Accept: 'application/vnd.github.v3+json' },
         accessToken = accessTokenInput.value.trim();
 
     if (accessToken.length > 0) {
