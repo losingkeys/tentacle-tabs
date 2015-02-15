@@ -13,14 +13,11 @@
       openWhichUsersInput      = document.getElementById('open-which-users'),
       openSortedHowInput       = document.getElementById('open-sorted-how'),
       openWhatOrderInput       = document.getElementById('open-what-order'),
-      openWhichUsernamesInput  =
-        document.getElementById('open-which-usernames'),
-      openWhichRepoNamesInput  =
-        document.getElementById('open-which-repo-names'),
+      openWhichUsernamesInput  = document.getElementById('open-which-usernames'),
+      openWhichRepoNamesInput  = document.getElementById('open-which-repo-names'),
       closeWhatTypeInput       = document.getElementById('close-what-type'),
       closeWhichReposInput     = document.getElementById('close-which-repos'),
-      closeWhichRepoNamesInput =
-        document.getElementById('close-which-repo-names'),
+      closeWhichRepoNamesInput = document.getElementById('close-which-repo-names'),
       closeWhereInput          = document.getElementById('close-where'),
       openForm                 = document.getElementById('open-form'),
       closeForm                = document.getElementById('close-form'),
